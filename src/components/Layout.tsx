@@ -3,36 +3,25 @@ import { Outlet, Link } from 'react-router-dom';
 
 function Layout() {
   return (
-    <div className="bg-gray-800">
-      <h1>Welcome to the Home app!</h1>
-
-      <p>
-        This example demonstrates how you can stitch two React Router apps
-        together using the <code>`basename`</code> prop on{' '}
-        <code>`BrowserRouter`</code> and <code>`StaticRouter`</code>.
-      </p>
-
+    <div className="bg-zinc-900 w-screen h-screen font-sans">
       <nav>
-        <ul>
-          <li>
+        <div className="flex gap-5 justify-end py-3 px-3">
+          <div className="px-5 py-3 rounded-xl bg-sky-300 w-max font-medium">
             <Link to="/">Home</Link>
-          </li>
-          <li>
+          </div>
+          <div className="px-5 py-3 rounded-xl bg-sky-300 w-max font-medium">
             <Link to="/about">About</Link>
-          </li>
-          <li>
-            {/* Use a normal <a> when linking to the "Inbox" app so the browser
-                does a full document reload, which is what we want when exiting
-                this app and entering another so we execute its entry point in
-                inbox/main.jsx. */}
-            <a href="/inbox">Inbox</a>
-          </li>
-        </ul>
+          </div>
+
+          <div className="px-5 py-3 rounded-xl bg-sky-300 w-max font-medium">
+            <Link to="/calendar">Calendar</Link>
+          </div>
+        </div>
       </nav>
-
       <hr />
-
-      <Outlet />
+      <div className="mt-8">
+        <Outlet />
+      </div>
     </div>
   );
 }

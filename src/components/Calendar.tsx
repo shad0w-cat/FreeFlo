@@ -3,7 +3,7 @@ import { Calendar } from 'primereact/calendar';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 
-dayjs.extend(isBetween); // use plugin
+dayjs.extend(isBetween);
 
 interface PeriodDetails {
   start: Date;
@@ -16,44 +16,71 @@ const CalendarComponent = () => {
   const currentDate = dayjs();
   const periodDetails: PeriodDetails = {
     start: dayjs('5 July 2024').toDate(),
-    end: dayjs('5 July 2024').add(5, 'day').toDate(),
-    cycle_time: 5,
+    end: dayjs('5 July 2024').add(4, 'day').toDate(),
+    cycle_time: 4,
     next_cycle: 28,
   };
 
-  // Subtract one month from the current date
-  const previousMonthDate = currentDate.subtract(0, 'month').toDate();
-  const [today, setToday] = useState<any>(previousMonthDate);
+  const [today, setToday] = useState<any>(currentDate.toDate());
+
+  const calculateCyclePeriods = (date: dayjs.Dayjs) => {
+    const cycles = [];
+    let start = dayjs(periodDetails.start);
+    let end = start.add(periodDetails.cycle_time, 'day');
+
+    while (start.isBefore(date.endOf('month').add(4, 'month'))) {
+      cycles.push({ start: start.toDate(), end: end.toDate() });
+      start = start.add(periodDetails.next_cycle, 'day');
+      end = end.add(periodDetails.next_cycle, 'day');
+    }
+
+    return cycles;
+  };
+
+  const cycles = calculateCyclePeriods(currentDate);
 
   const isPeriodDay = (date: {
     year: number;
     month: number;
     day: number | undefined;
   }) => {
-    const start = dayjs(periodDetails.start);
-    const end = dayjs(periodDetails.end);
     const currentDate = new Date(date.year, date.month, date.day);
-    console.log(start, end, currentDate);
-    return dayjs(currentDate).isBetween(start, end, null, '[]');
+    return cycles.some((cycle) =>
+      dayjs(currentDate).isBetween(
+        dayjs(cycle.start),
+        dayjs(cycle.end),
+        null,
+        '[]'
+      )
+    );
   };
 
-  const isCurrentMonth = (date: { month: number }) => {
-    return date.month === dayjs().month();
+  const getCycleClass = (date: {
+    year: number;
+    month: number;
+    day: number | undefined;
+  }) => {
+    const currentDate = new Date(date.year, date.month, date.day);
+    const isPeriod = isPeriodDay(date);
+    const isActiveCycle = dayjs(currentDate).isBetween(
+      dayjs(periodDetails.start).subtract(1, 'day'),
+      dayjs(periodDetails.end).add(1, 'day')
+    );
+
+    if (isActiveCycle) {
+      return 'bg-red-200 rounded-full text-black font-medium w-10 h-10 justify-center items-center flex font-sans';
+    } else if (isPeriod && !isActiveCycle) {
+      return 'border border-red-300 border-dotted border-2 rounded-full w-10 h-10 justify-center items-center flex font-sans';
+    } else if (isPeriod) {
+      return 'bg-orange-300 rounded-full p-10 text-black font-medium font-sans';
+    }
+
+    return 'font-sans';
   };
 
   const dayTemplate = (date: any) => {
-    const currentDate = new Date(date.year, date.month, date.day);
-    const isPeriod = isPeriodDay(date);
-    const isActiveMonth = isCurrentMonth(date);
-    // console.log(currentDate, isPeriod, isActiveMonth);
-
-    const dayClass = `${
-      isPeriod && isActiveMonth
-        ? 'bg-red-300 rounded-full p-10 text-black font-medium'
-        : ''
-    } ${!isActiveMonth && isPeriod ? 'border border-gray-300' : ''}`;
-    // console.log(currentDate);
-    return <div className={dayClass}>{currentDate.getDate()}</div>;
+    const dayClass = getCycleClass(date);
+    return <div className={dayClass}>{date.day}</div>;
   };
 
   return (
@@ -61,10 +88,10 @@ const CalendarComponent = () => {
       <Calendar
         value={today}
         // onChange={(e) => setToday(e.value)}
-        numberOfMonths={3}
         inline
-        className="w-4/5"
+        className="w-2/5"
         dateTemplate={dayTemplate}
+        readOnlyInput
       />
     </div>
   );
