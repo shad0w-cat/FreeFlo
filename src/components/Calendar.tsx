@@ -76,11 +76,9 @@ const CalendarComponent = () => {
       return 'bg-red-200 rounded-full text-black font-medium w-10 h-10 justify-center items-center flex font-sans';
     } else if (isPeriod && !isActiveCycle) {
       return 'border border-red-300 border-dotted border-2 rounded-full w-10 h-10 justify-center items-center flex font-sans';
-    } else if (isPeriod) {
-      return 'bg-orange-300 rounded-full p-10 text-black font-medium font-sans';
+    } else {
+      return 'font-sans';
     }
-
-    return 'font-sans';
   };
 
   const dayTemplate = (date: any) => {
