@@ -87,7 +87,7 @@ const CalendarComponent = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className="w-full flex-col flex justify-center items-center gap-10">
       <Calendar
         value={today}
         // onChange={(e) => setToday(e.value)}
@@ -96,6 +96,9 @@ const CalendarComponent = () => {
         dateTemplate={dayTemplate}
         readOnlyInput
       />
+      <div className="px-5 py-3 rounded-xl bg-violet-300 w-max font-medium hover:bg-violet-400 hover:cursor-pointer">
+        Log Periods
+      </div>
     </div>
   );
 };
