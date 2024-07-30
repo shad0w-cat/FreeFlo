@@ -6,6 +6,7 @@ import ErrorPage from './pages/error-page';
 import React from 'react';
 import { PrimeReactProvider } from 'primereact/api';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
+import NotFound from './pages/404';
 
 export default function App() {
   return (
@@ -13,8 +14,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
           <Route index element={<Calendar />} />
-          {/* <Route path="about" element={<About />} />
-        <Route path="*" element={<NoMatch />} /> */}
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </PrimeReactProvider>
