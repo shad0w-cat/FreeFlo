@@ -1,0 +1,161 @@
+:root {
+    --primary-color: #ff69b4;
+    --secondary-color: #ff9ff3;
+    --accent-color: #4ecdc4;
+    --text-color: #333;
+    --background-color: #f8f8f8;
+    --card-background: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .login-register {
+    max-width: 400px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px var(--shadow-color);
+  }
+  
+  .login-register h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+  
+  .login-register form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-register input {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .login-register input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+  }
+  
+  .login-register button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 1rem;
+  }
+  
+  .login-register button[type="submit"]:hover {
+    background-color: var(--secondary-color);
+  }
+  
+  .login-register button:last-child {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .login-register button:last-child:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  @media (max-width: 768px) {
+    .login-register {
+      margin: 2rem auto;
+      padding: 1.5rem;
+    }
+  }
+  
+  /* Additional styles for period tracking specific elements */
+  
+  .cycle-tracker {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px var(--shadow-color);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .cycle-tracker h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  .cycle-tracker .date-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .cycle-tracker .date-input label {
+    margin-right: 1rem;
+    font-weight: bold;
+  }
+  
+  .cycle-tracker .date-input input[type="date"] {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .symptom-tracker {
+    margin-top: 2rem;
+  }
+  
+  .symptom-tracker h4 {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .symptom-tracker .symptom-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .symptom-tracker .symptom-item {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .symptom-tracker .symptom-item:hover,
+  .symptom-tracker .symptom-item.active {
+    background-color: var(--primary-color);
+  }
