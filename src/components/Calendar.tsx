@@ -33,6 +33,11 @@ const CalendarComponent = () => {
       start = start.add(periodDetails.next_cycle, 'day');
       end = end.add(periodDetails.next_cycle, 'day');
     }
+    while (start.isAfter(date.endOf('month').subtract(4, 'month'))) {
+      start = start.subtract(periodDetails.next_cycle, 'day');
+      end = start.add(periodDetails.cycle_time, 'day');
+      cycles.push({ start: start.toDate(), end: end.toDate() });
+    }
 
     return cycles;
   };
